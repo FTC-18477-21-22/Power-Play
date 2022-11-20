@@ -91,7 +91,7 @@ public class HardwareBIGBRAINBOTS {
         RearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public double gyroTurn(double speed, double angle) {
+    public void gyroTurn(double speed, double angle, double coeff) {
         double error;
         double steer;
         double leftSpeed, rightSpeed;
@@ -113,8 +113,13 @@ public class HardwareBIGBRAINBOTS {
             telemetry.addData("Err/ St", "%5.2f/% 5.2f", error, steer);
             telemetry.addData(" Speed.", "%5.2f:% 5.2f", leftSpeed, rightSpeed);
             telemetry.update();
-
+            error = getError(angle);
         }
+        FrontLeftDrive.setPower(0);
+        FrontRightDrive.setPower(0);
+        RearLeftDrive.setPower(0);
+        RearRightDrive.setPower(0);
+    }
 
         public double getError (double targetAngle){
             double angleError;
@@ -130,7 +135,6 @@ public class HardwareBIGBRAINBOTS {
             }
             return angleError;
         }
-    }
 
 
 }
