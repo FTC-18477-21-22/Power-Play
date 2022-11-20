@@ -1,13 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class HardwareBIGBRAINBOTS {
     public DcMotor FrontLeftDrive = null;
     public DcMotor FrontRightDrive = null;
     public DcMotor RearLeftDrive = null;
     public DcMotor RearRightDrive = null;
+    public BNO055IMU imu;
 
 
     HardwareMap hwMap = null;
@@ -80,4 +90,47 @@ public class HardwareBIGBRAINBOTS {
         RearLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    public double gyroTurn(double speed, double angle) {
+        double error;
+        double steer;
+        double leftSpeed, rightSpeed;
+        boolean onTarget = false;
+        error = getError(angle);
+
+
+        while (Math.abs(error) > 1) {
+            steer = Range.clip(coeff * error, -speed, speed);
+            rightSpeed = steer;
+            leftSpeed = rightSpeed;
+
+            FrontLeftDrive.setPower(leftSpeed);
+            FrontRightDrive.setPower(rightSpeed);
+            RearLeftDrive.setPower(leftSpeed);
+            RearRightDrive.setPower(rightSpeed);
+
+            telemetry.addData(" Target", "% 5.2f", angle);
+            telemetry.addData("Err/ St", "%5.2f/% 5.2f", error, steer);
+            telemetry.addData(" Speed.", "%5.2f:% 5.2f", leftSpeed, rightSpeed);
+            telemetry.update();
+
+        }
+
+        public double getError (double targetAngle){
+            double angleError;
+            Orientation orientation = imu.getAngularOrientation(
+                    AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+            angleError = targetAngle - orientation.thirdAngle;
+
+            if(angleError > 180){
+                angleError-=360;
+            }
+            if (angleError <= -180){
+                angleError +=360;
+            }
+            return angleError;
+        }
+    }
+
+
 }
