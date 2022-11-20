@@ -19,7 +19,6 @@ public class HardwareBIGBRAINBOTS {
     public DcMotor RearRightDrive = null;
     public BNO055IMU imu;
 
-
     HardwareMap hwMap = null;
 
     public void init(HardwareMap ahwMap) {
@@ -53,6 +52,15 @@ public class HardwareBIGBRAINBOTS {
         FrontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RearLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+
+        imu = hwMap.get(BNO055IMU.class,"imu");
+        imu.initialize(parameters);
+
     }
 
     public void drive(double power, int EncoderCounts) {

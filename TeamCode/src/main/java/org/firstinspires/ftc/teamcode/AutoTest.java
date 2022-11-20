@@ -33,22 +33,6 @@ public class AutoTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(this.hardwareMap);
 
-        //initialize IMU
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
-
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
-        Orientation orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-        telemetry.addData("Third angle", "%.1f", orientation.thirdAngle);
-        telemetry.update();
-        //initialize IMU end
-
         waitForStart();
         /*double distance = 10;
         int counts = (int)(COUNTS_PER_INCH*distance);
