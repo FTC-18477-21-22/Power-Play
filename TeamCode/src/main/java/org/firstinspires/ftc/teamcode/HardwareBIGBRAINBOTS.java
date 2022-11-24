@@ -60,7 +60,6 @@ public class HardwareBIGBRAINBOTS {
 
         imu = hwMap.get(BNO055IMU.class,"imu");
         imu.initialize(parameters);
-
     }
 
     public void drive(double power, int EncoderCounts) {
@@ -106,11 +105,10 @@ public class HardwareBIGBRAINBOTS {
         boolean onTarget = false;
         error = getError(angle);
 
-
         while (Math.abs(error) > 1) {
             steer = Range.clip(coeff * error, -speed, speed);
             rightSpeed = steer;
-            leftSpeed = rightSpeed;
+            leftSpeed = -rightSpeed;
 
             FrontLeftDrive.setPower(leftSpeed);
             FrontRightDrive.setPower(rightSpeed);
@@ -129,20 +127,18 @@ public class HardwareBIGBRAINBOTS {
         RearRightDrive.setPower(0);
     }
 
-        public double getError (double targetAngle){
-            double angleError;
-            Orientation orientation = imu.getAngularOrientation(
-                    AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-            angleError = targetAngle - orientation.thirdAngle;
+    public double getError (double targetAngle){
+        double angleError;
+        Orientation orientation = imu.getAngularOrientation(AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
+        angleError = targetAngle - orientation.thirdAngle;
 
-            if(angleError > 180){
-                angleError-=360;
-            }
-            if (angleError <= -180){
-                angleError +=360;
-            }
-            return angleError;
+        if(angleError > 180){
+            angleError-=360;
         }
-
+        if (angleError <= -180){
+            angleError +=360;
+        }
+        return angleError;
+    }
 
 }
