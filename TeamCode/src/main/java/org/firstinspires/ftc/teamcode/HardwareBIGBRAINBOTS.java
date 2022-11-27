@@ -110,17 +110,17 @@ public class HardwareBIGBRAINBOTS {
         while (Math.abs(error) > 1) {
             steer = Range.clip(coeff * error, -speed, speed);
             rightSpeed = steer;
-            leftSpeed = rightSpeed;
+            leftSpeed = -rightSpeed;
 
             FrontLeftDrive.setPower(leftSpeed);
             FrontRightDrive.setPower(rightSpeed);
             RearLeftDrive.setPower(leftSpeed);
             RearRightDrive.setPower(rightSpeed);
 
-            telemetry.addData(" Target", "% 5.2f", angle);
+            /*telemetry.addData(" Target", "% 5.2f", angle);
             telemetry.addData("Err/ St", "%5.2f/% 5.2f", error, steer);
             telemetry.addData(" Speed.", "%5.2f:% 5.2f", leftSpeed, rightSpeed);
-            telemetry.update();
+            telemetry.update();*/
             error = getError(angle);
         }
         FrontLeftDrive.setPower(0);

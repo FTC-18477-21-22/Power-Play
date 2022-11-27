@@ -39,10 +39,10 @@ public class AutoTest extends LinearOpMode {
         robot.drive(0.50, counts);*/
 
         robot.gyroTurn(TURN_SPEED, 90, P_TURN_COEFF_1);
-        sleep(5000);
+        /*sleep(5000);
         robot.gyroTurn(TURN_SPEED, 0, P_TURN_COEFF_2);
         telemetry.addData("turn", "finished");
-        telemetry.update();
+        telemetry.update();*/
 
     }
 
