@@ -19,6 +19,7 @@ public class BBBTeleOp extends LinearOpMode {
             double drive = -gamepad1.right_stick_y;
             double strafe = -gamepad1.right_stick_x;
             double turn = -gamepad1.left_stick_x*0.8;
+            double slide = gamepad1.left_trigger-gamepad1.right_trigger;
 
             double FLPower = Range.clip(drive - strafe + turn, -1.0, 1.0);
             double FRPower = Range.clip(drive + strafe - turn, -1.0, 1.0);
@@ -29,6 +30,8 @@ public class BBBTeleOp extends LinearOpMode {
             robot.FrontRightDrive.setPower(FRPower);
             robot.RearLeftDrive.setPower(BLPower);
             robot.RearRightDrive.setPower(BRPower);
+            robot.LeftSlide.setPower(slide);
+            robot.RightSlide.setPower(slide);
         }
     }
 }
