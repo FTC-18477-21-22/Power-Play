@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
@@ -14,6 +15,8 @@ public class BBBTeleOp extends LinearOpMode {
         telemetry.addData("Mode", "waiting");
         telemetry.update();
         waitForStart();
+        final int MAX_SLIDE = 500;
+        final int MIN_SLIDE = 0;
         while (opModeIsActive()) {
 
             double drive = -gamepad1.right_stick_y;
@@ -32,6 +35,45 @@ public class BBBTeleOp extends LinearOpMode {
             robot.RearRightDrive.setPower(BRPower);
             robot.LeftSlide.setPower(slide);
             robot.RightSlide.setPower(slide);
+
+            if(gamepad1.a) {
+                robot.Intake.setPower(1);
+            } else if(gamepad1.b) {
+                robot.Intake.setPower(-1);
+            } else {
+                robot.Intake.setPower(0);
+            }
+
+            if(gamepad1.left_bumper) {
+                robot.Arm.setPosition(0);
+            }
+
+            if(gamepad1.right_bumper) {
+                robot.Arm.setPosition(0.6);
+            }
+
+            if(robot.LeftSlide.getCurrentPosition()<=MIN_SLIDE) {
+                telemetry.addData("Go down", "Yes");
+                if(slide>=0){
+                    robot.LeftSlide.setPower(slide);
+                    robot.RightSlide.setPower(slide);
+                } else {
+                    robot.LeftSlide.setPower(0);
+                    robot.RightSlide.setPower(0);
+                }
+            } else if(robot.LeftSlide.getCurrentPosition()>=MAX_SLIDE) {
+                telemetry.addData("Go up", "Yes");
+                if(slide<=0){
+                    robot.LeftSlide.setPower(slide);
+                    robot.RightSlide.setPower(slide);
+                } else {
+                    robot.LeftSlide.setPower(0);
+                    robot.RightSlide.setPower(0);
+                }
+            } else {
+                robot.LeftSlide.setPower(slide);
+                robot.RightSlide.setPower(slide);
+            }
         }
     }
 }
