@@ -15,14 +15,14 @@ public class BBBTeleOp extends LinearOpMode {
         telemetry.addData("Mode", "waiting");
         telemetry.update();
         waitForStart();
-        final int MAX_SLIDE = 500;
+        final int MAX_SLIDE = -4300;
         final int MIN_SLIDE = 0;
         while (opModeIsActive()) {
 
             double drive = -gamepad1.right_stick_y;
             double strafe = -gamepad1.right_stick_x;
             double turn = -gamepad1.left_stick_x*0.8;
-            double slide = gamepad1.left_trigger-gamepad1.right_trigger;
+            double slide = gamepad2.left_trigger-gamepad2.right_trigger;
 
             double FLPower = Range.clip(drive - strafe + turn, -1.0, 1.0);
             double FRPower = Range.clip(drive + strafe - turn, -1.0, 1.0);
@@ -33,36 +33,29 @@ public class BBBTeleOp extends LinearOpMode {
             robot.FrontRightDrive.setPower(FRPower);
             robot.RearLeftDrive.setPower(BLPower);
             robot.RearRightDrive.setPower(BRPower);
-            robot.LeftSlide.setPower(slide);
-            robot.RightSlide.setPower(slide);
+            //robot.LeftSlide.setPower(slide);
+            //robot.RightSlide.setPower(slide);
 
-            if(gamepad1.a) {
+             telemetry.addData("Rotation", robot.LeftSlide.getCurrentPosition());
+
+            if(gamepad2.a) {
                 robot.Intake.setPower(1);
-            } else if(gamepad1.b) {
+            } else if(gamepad2.b) {
                 robot.Intake.setPower(-1);
             } else {
                 robot.Intake.setPower(0);
             }
 
-            if(gamepad1.left_bumper) {
+            if(gamepad2.left_bumper) {
                 robot.Arm.setPosition(0);
             }
 
-            if(gamepad1.right_bumper) {
+            if(gamepad2.right_bumper) {
                 robot.Arm.setPosition(0.6);
             }
 
-            if(robot.LeftSlide.getCurrentPosition()<=MIN_SLIDE) {
-                telemetry.addData("Go down", "Yes");
-                if(slide>=0){
-                    robot.LeftSlide.setPower(slide);
-                    robot.RightSlide.setPower(slide);
-                } else {
-                    robot.LeftSlide.setPower(0);
-                    robot.RightSlide.setPower(0);
-                }
-            } else if(robot.LeftSlide.getCurrentPosition()>=MAX_SLIDE) {
-                telemetry.addData("Go up", "Yes");
+            if(robot.LeftSlide.getCurrentPosition()>=MIN_SLIDE) {
+                telemetry.addData("Slide", "Min");
                 if(slide<=0){
                     robot.LeftSlide.setPower(slide);
                     robot.RightSlide.setPower(slide);
@@ -70,10 +63,21 @@ public class BBBTeleOp extends LinearOpMode {
                     robot.LeftSlide.setPower(0);
                     robot.RightSlide.setPower(0);
                 }
+            } else if(robot.LeftSlide.getCurrentPosition()<=MAX_SLIDE) {
+                telemetry.addData("Slide", "Max");
+                if(slide>=0){
+                    robot.LeftSlide.setPower(slide);
+                    robot.RightSlide.setPower(slide);
+                } else {
+                    robot.LeftSlide.setPower(0);
+                    robot.RightSlide.setPower(0);
+                }
             } else {
+                telemetry.addData("Slide", "Normal");
                 robot.LeftSlide.setPower(slide);
                 robot.RightSlide.setPower(slide);
             }
+            telemetry.update();
         }
     }
 }
