@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -17,6 +19,10 @@ public class HardwareBIGBRAINBOTS {
     public DcMotor FrontRightDrive = null;
     public DcMotor RearLeftDrive = null;
     public DcMotor RearRightDrive = null;
+    public DcMotor LeftSlide = null;
+    public DcMotor RightSlide = null;
+    public CRServo Intake = null;
+    public Servo Arm = null;
     public BNO055IMU imu;
 
     HardwareMap hwMap = null;
@@ -27,21 +33,34 @@ public class HardwareBIGBRAINBOTS {
         FrontRightDrive = hwMap.get(DcMotor.class, "FR_DCmotor");
         RearLeftDrive = hwMap.get(DcMotor.class, "RL_DCmotor");
         RearRightDrive = hwMap.get(DcMotor.class, "RR_DCmotor");
+        LeftSlide = hwMap.get(DcMotor.class, "LeftSlide");
+        RightSlide = hwMap.get(DcMotor.class, "RightSlide");
+        Intake = hwMap.get(CRServo.class, "Intake");
+        Arm = hwMap.get(Servo.class, "Arm");
 
         FrontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         FrontRightDrive.setDirection(DcMotor.Direction.FORWARD);
         RearLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         RearRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        LeftSlide.setDirection(DcMotor.Direction.REVERSE);
+        Intake.setDirection(CRServo.Direction.FORWARD);
+        Arm.setDirection(Servo.Direction.FORWARD);
 
         FrontLeftDrive.setPower(0);
         FrontRightDrive.setPower(0);
         RearLeftDrive.setPower(0);
         RearRightDrive.setPower(0);
+        LeftSlide.setPower(0);
+        RightSlide.setPower(0);
+        Intake.setPower(0);
+        Arm.setPosition(0);
 
         FrontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         FrontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RearLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LeftSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RightSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         FrontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FrontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -115,10 +134,10 @@ public class HardwareBIGBRAINBOTS {
             RearLeftDrive.setPower(leftSpeed);
             RearRightDrive.setPower(rightSpeed);
 
-            telemetry.addData(" Target", "% 5.2f", angle);
+            /*telemetry.addData(" Target", "% 5.2f", angle);
             telemetry.addData("Err/ St", "%5.2f/% 5.2f", error, steer);
             telemetry.addData(" Speed.", "%5.2f:% 5.2f", leftSpeed, rightSpeed);
-            telemetry.update();
+            telemetry.update();*/
             error = getError(angle);
         }
         FrontLeftDrive.setPower(0);

@@ -33,15 +33,17 @@ public class AutoTest extends LinearOpMode {
         robot.init(this.hardwareMap);
 
         waitForStart();
-        /*double distance = 10;
+        double distance = 100;
         int counts = (int)(COUNTS_PER_INCH*distance);
-        robot.drive(0.50, counts);*/
+        robot.drive(0.50, counts);
 
-        robot.gyroTurn(TURN_SPEED, 90, P_TURN_COEFF_1);
-        sleep(5000);
+        robot.gyroTurn(TURN_SPEED, 180, P_TURN_COEFF_1);
+
+        robot.drive(0.50, (int)(45.2079566*100));
+        /*sleep(5000);
         robot.gyroTurn(TURN_SPEED, 0, P_TURN_COEFF_2);
         telemetry.addData("turn", "finished");
-        telemetry.update();
+        telemetry.update();*/
 
     }
 
