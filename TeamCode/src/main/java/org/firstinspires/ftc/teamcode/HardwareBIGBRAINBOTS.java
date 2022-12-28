@@ -137,6 +137,44 @@ public class HardwareBIGBRAINBOTS {
         RearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    public void strafe(double power, int EncoderCounts) {
+        FrontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FrontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RearLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RearRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FrontLeftDrive.setTargetPosition(-1 * EncoderCounts);
+        FrontRightDrive.setTargetPosition(EncoderCounts);
+        RearLeftDrive.setTargetPosition(EncoderCounts);
+        RearRightDrive.setTargetPosition(-1 * EncoderCounts);
+        FrontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RearRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FrontLeftDrive.setPower(-1 * power);
+        FrontRightDrive.setPower(power);
+        RearLeftDrive.setPower(power);
+        RearRightDrive.setPower(-1 * power);
+        while (FrontLeftDrive.isBusy() || FrontRightDrive.isBusy() || RearLeftDrive.isBusy() || RearRightDrive.isBusy()) {
+            //telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d",
+            //        FrontLeftDrive.getCurrentPosition(),
+            //            FrontRightDrive.getCurrentPosition(),
+            //          RearLeftDrive.getCurrentPosition(),
+            //        RearRightDrive.getCurrentPosition());
+            //telemetry.update();
+        }
+        FrontLeftDrive.setPower(0);
+        FrontRightDrive.setPower(0);
+        RearLeftDrive.setPower(0);
+        RearRightDrive.setPower(0);
+
+        FrontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FrontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RearLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RearRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //telemetry.addData("Motors", "left (%.2f), right (%.2f)", 0,power);
+    }
+
     public void gyroTurn(double speed, double angle, double coeff) {
         double error;
         double steer;
