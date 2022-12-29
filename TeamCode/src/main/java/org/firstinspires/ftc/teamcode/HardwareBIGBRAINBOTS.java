@@ -95,10 +95,18 @@ public class HardwareBIGBRAINBOTS {
         RightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LeftSlide.setPower(power);
         RightSlide.setPower(power);
-        LeftSlide.setPower(0);
-        RightSlide.setPower(0);
-        LeftSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        RightSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        while(LeftSlide.isBusy()) {
+            //empty
+        }
+    }
+
+    public void notallwait(double power, int EncoderCounts) {
+        LeftSlide.setTargetPosition(EncoderCounts);
+        RightSlide.setTargetPosition(EncoderCounts);
+        LeftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LeftSlide.setPower(power);
+        RightSlide.setPower(power);
     }
 
     public void drive(double power, int EncoderCounts) {

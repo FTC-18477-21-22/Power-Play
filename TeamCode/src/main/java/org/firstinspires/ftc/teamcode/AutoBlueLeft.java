@@ -6,6 +6,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -32,15 +33,31 @@ public class AutoBlueLeft extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(this.hardwareMap);
+        robot.Intake.setPower(1);
         robot.Arm.setPosition(0.3);
         waitForStart();
         double distance = 100;
         int counts = (int)(COUNTS_PER_INCH*distance);
+        robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*-22));
+        robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-14));
-        robot.tall(0.4, (int)-3000);
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
+        // robot.notallwait(0.7, (int)-3700);
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
+        robot.Arm.setPosition(0.6);
+        robot.Intake.setPower(-1);
+        sleep(500);
+        robot.Intake.setPower(0);
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
+        robot.notallwait(0.7, (int)0);
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-74));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
+        while(true) {
+            //empty
+        }
 
         // robot.gyroTurn(TURN_SPEED, 180, P_TURN_COEFF_1);
 
