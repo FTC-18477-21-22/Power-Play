@@ -28,10 +28,13 @@ public class AutoBlueLeft extends LinearOpMode {
     static final double P_TURN_COEFF_1 = 0.025;
     static final double P_TURN_COEFF_2 = 0.0035;
     static final double HEADING_THRESHOLD = 0.5;
+    String signal = "NO_VALUE";
     //imu stuff end
 
     @Override
     public void runOpMode() throws InterruptedException {
+        signal = "two";
+
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
         robot.Arm.setPosition(0.3);
@@ -53,8 +56,21 @@ public class AutoBlueLeft extends LinearOpMode {
         robot.Intake.setPower(0);
         robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
         robot.notallwait(0.7, (int)0);
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-74));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
+        // End of robot drop
+        switch (signal) {
+            case "one":
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*20));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                break;
+            case "two":
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*45));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                break;
+            case "three":
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*74));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                break;
+        }
         while(true) {
             //empty
         }
