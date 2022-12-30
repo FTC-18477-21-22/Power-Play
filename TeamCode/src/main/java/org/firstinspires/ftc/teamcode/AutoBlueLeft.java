@@ -33,7 +33,7 @@ public class AutoBlueLeft extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        signal = "two";
+        signal = "one";
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
@@ -59,7 +59,7 @@ public class AutoBlueLeft extends LinearOpMode {
         // End of robot drop
         switch (signal) {
             case "one":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*20));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
                 break;
             case "two":

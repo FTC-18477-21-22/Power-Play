@@ -24,7 +24,7 @@ public class AutoBlueRight extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        signal = "two";
+        signal = "one";
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
@@ -38,7 +38,7 @@ public class AutoBlueRight extends LinearOpMode {
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*22));
         robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*18));
         // robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
         robot.Arm.setPosition(0.6);
@@ -50,11 +50,11 @@ public class AutoBlueRight extends LinearOpMode {
         // End of robot drop
         switch (signal) {
             case "one":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-20));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case "two":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-45));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-43));
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case "three":
