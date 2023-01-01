@@ -35,7 +35,7 @@ public class AutoBlueRight extends LinearOpMode {
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*22));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*30));
         robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*18));
@@ -50,7 +50,7 @@ public class AutoBlueRight extends LinearOpMode {
         // End of robot drop
         switch (signal) {
             case "one":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-17));
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case "two":
