@@ -1,21 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous
-public class AutoBlueLeft extends LinearOpMode {
+public class AutoBlueRight extends LinearOpMode {
 
     //static final double COUNTS_PER_MOTOR_REV = 28 ;
     //static final double DRIVE_GEAR_REDUCTION = 13.7;
@@ -44,10 +35,10 @@ public class AutoBlueLeft extends LinearOpMode {
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-22));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*22));
         robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*18));
         // robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
         robot.Arm.setPosition(0.6);
@@ -59,16 +50,16 @@ public class AutoBlueLeft extends LinearOpMode {
         // End of robot drop
         switch (signal) {
             case "one":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case "two":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*45));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-43));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case "three":
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*74));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-74));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
         }
         while(true) {
