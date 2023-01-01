@@ -22,7 +22,6 @@ public class AutoTest extends LinearOpMode {
     static final double COUNTS_PER_INCH = 45.2079566;
     HardwareBIGBRAINBOTS robot = new HardwareBIGBRAINBOTS();
 
-    private BNO055IMU imu;
     static final double TURN_SPEED = 0.75;
     static final double P_TURN_COEFF_1 = 0.025;
     static final double P_TURN_COEFF_2 = 0.0035;

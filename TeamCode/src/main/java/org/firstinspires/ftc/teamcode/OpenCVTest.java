@@ -1,9 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Core;
@@ -19,40 +18,18 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class AutoBlueRight extends LinearOpMode {
-
-    //static final double COUNTS_PER_MOTOR_REV = 28 ;
-    //static final double DRIVE_GEAR_REDUCTION = 13.7;
-    //static final double WHEEL_DIAMETER_INCHES = 4;
-    static final double COUNTS_PER_INCH = 45.2079566;
-    HardwareBIGBRAINBOTS robot = new HardwareBIGBRAINBOTS();
-
-    private BNO055IMU imu;
-    static final double TURN_SPEED = 0.75;
-    static final double P_TURN_COEFF_1 = 0.025;
-    static final double P_TURN_COEFF_2 = 0.0035;
-    static final double HEADING_THRESHOLD = 0.5;
-    String signal = "NO_VALUE";
-    //imu stuff end
+public class OpenCVTest extends LinearOpMode {
 
     OpenCvWebcam webcam;
     SignalDetectionPipeline pipeline;
-    public enum Signal
-    {S1, S2, S3}
-
     @Override
-    public void runOpMode() throws InterruptedException {
-    //    signal = "one";
-
-        robot.init(this.hardwareMap);
-        robot.Intake.setPower(1);
-        robot.Arm.setPosition(0.3);
-
+    public void runOpMode()
+    {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap. appContext. getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName. class, "Webcam 1"), cameraMonitorViewId);
         pipeline = new SignalDetectionPipeline();
         webcam.setPipeline(pipeline);
-        //   webcam.setMillisecondsPermissionTimeout(5000);
+     //   webcam.setMillisecondsPermissionTimeout(5000);
         webcam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
         webcam.openCameraDeviceAsync(new  OpenCvCamera. AsyncCameraOpenListener()
@@ -69,60 +46,24 @@ public class AutoBlueRight extends LinearOpMode {
 
             }
         });
-
-        waitForStart();
-        sleep(50);
-        Signal sig = pipeline.getAnalysis();
-        telemetry.addData("Analysis", sig);
+        telemetry.addLine("Waiting for start");
         telemetry.update();
 
-        double distance = 100;
-        int counts = (int)(COUNTS_PER_INCH*distance);
-        robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*30));
-        robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*18));
-        // robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
-        robot.Arm.setPosition(0.6);
-        robot.Intake.setPower(-1);
-        sleep(500);
-        robot.Intake.setPower(0);
-        robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
-        robot.notallwait(0.7, (int)0);
-        // End of robot drop
-        switch (sig) {
-            case S1:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
-                break;
-            case S2:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-43));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
-                break;
-            case S3:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-74));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
-                break;
+        waitForStart();
+
+        while (opModeIsActive()) {
+            telemetry.addData("Analysis", pipeline.getAnalysis());
+            telemetry.update();
+
+            sleep(50);
         }
-        while(true) {
-            //empty
-        }
-
-        // robot.gyroTurn(TURN_SPEED, 180, P_TURN_COEFF_1);
-
-        // robot.drive(0.50, (int)(45.2079566*100));
-        /*sleep(5000);
-        robot.gyroTurn(TURN_SPEED, 0, P_TURN_COEFF_2);
-        telemetry.addData("turn", "finished");
-        telemetry.update();*/
-
     }
     public static class SignalDetectionPipeline extends OpenCvPipeline
     {
+        public enum Signal
+        {S1, S2, S3}
+
+
         static final Point TOPLEFT_ANCHOR_POINT = new Point(190,60);
         static final int REGION_WIDTH = 60;
         static final int REGION_HEIGHT = 80;
@@ -219,6 +160,4 @@ public class AutoBlueRight extends LinearOpMode {
         public Signal getAnalysis() {return sig;}
 
     }
-
 }
-
