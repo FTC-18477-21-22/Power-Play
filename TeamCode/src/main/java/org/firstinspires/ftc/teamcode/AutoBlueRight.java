@@ -46,7 +46,7 @@ public class AutoBlueRight extends LinearOpMode {
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
-        robot.Arm.setPosition(0.3);
+        robot.Arm.setPosition(0.25);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap. appContext. getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName. class, "Webcam 1"), cameraMonitorViewId);

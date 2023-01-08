@@ -51,7 +51,7 @@ public class BBBTeleOp extends LinearOpMode {
             }
 
             if(gamepad2.right_bumper) {
-                robot.Arm.setPosition(0.6);
+                robot.Arm.setPosition(1);
             }
 
             if(robot.LeftSlide.getCurrentPosition()>=MIN_SLIDE) {
