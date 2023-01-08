@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class AutoRedLeft extends LinearOpMode {
+public class AutoLeftMiddle extends LinearOpMode {
 
     //static final double COUNTS_PER_MOTOR_REV = 28 ;
     //static final double DRIVE_GEAR_REDUCTION = 13.7;
@@ -42,11 +42,12 @@ public class AutoRedLeft extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        //    signal = "one";
+    //    signal = "one";
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
-        robot.Arm.setPosition(0.25);
+        robot.Arm.setPosition(0.45);
+        telemetry.update();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap. appContext. getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName. class, "Webcam 1"), cameraMonitorViewId);
@@ -87,7 +88,7 @@ public class AutoRedLeft extends LinearOpMode {
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
         // robot.notallwait(0.7, (int)-3700);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
-        robot.Arm.setPosition(0.6);
+        robot.Arm.setPosition(0);
         robot.Intake.setPower(-1);
         sleep(500);
         robot.Intake.setPower(0);
