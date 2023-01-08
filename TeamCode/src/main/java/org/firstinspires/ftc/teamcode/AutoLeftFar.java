@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class AutoRightMiddle extends LinearOpMode {
+public class AutoLeftFar extends LinearOpMode {
 
     //static final double COUNTS_PER_MOTOR_REV = 28 ;
     //static final double DRIVE_GEAR_REDUCTION = 13.7;
@@ -42,11 +42,12 @@ public class AutoRightMiddle extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-    //    signal = "one";
+        //    signal = "one";
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
         robot.Arm.setPosition(0.45);
+        telemetry.update();
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap. appContext. getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName. class, "Webcam 1"), cameraMonitorViewId);
@@ -81,30 +82,29 @@ public class AutoRightMiddle extends LinearOpMode {
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*30));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-22));
         robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
-        // robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*4));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*50));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*11));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
         robot.Arm.setPosition(0);
         robot.Intake.setPower(-1);
         sleep(500);
         robot.Intake.setPower(0);
-        robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*7));
         robot.notallwait(0.7, (int)0);
+        robot.strafe(0.35, (int)-(COUNTS_PER_INCH*11));
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*23));
         // End of robot drop
         switch (sig) {
             case S1:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case S2:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-43));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*27));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
                 break;
             case S3:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-66));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*50));
                 break;
         }
         while(true) {
@@ -120,9 +120,10 @@ public class AutoRightMiddle extends LinearOpMode {
         telemetry.update();*/
 
     }
+
     public static class SignalDetectionPipeline extends OpenCvPipeline
     {
-        static final Point TOPLEFT_ANCHOR_POINT = new Point(190,60);
+        static final Point TOPLEFT_ANCHOR_POINT = new Point(160,60);
         static final int REGION_WIDTH = 60;
         static final int REGION_HEIGHT = 80;
         Point region_pointA = new Point(
@@ -181,7 +182,6 @@ public class AutoRightMiddle extends LinearOpMode {
             region_Ca = Ca.submat(new Rect(region_pointA, region_pointB));
 
         }
-
 
         public Mat processFrame(Mat input)
         {

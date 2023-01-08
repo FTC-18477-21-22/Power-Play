@@ -105,8 +105,7 @@ public class AutoLeftMiddle extends LinearOpMode {
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
                 break;
             case S3:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*74));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*66));
                 break;
         }
         while(true) {
