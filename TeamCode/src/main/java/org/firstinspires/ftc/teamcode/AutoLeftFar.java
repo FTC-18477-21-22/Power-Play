@@ -81,11 +81,13 @@ public class AutoLeftFar extends LinearOpMode {
         int counts = (int)(COUNTS_PER_INCH*distance);
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*5));
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*-22));
+        robot.gyroTurn(0.5, 0, 0.01);
         robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*50));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*11));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*45));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*13.5));
+        robot.gyroTurn(0.5, 0, 0.01);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
         robot.Arm.setPosition(0);
         robot.Intake.setPower(-1);
@@ -93,18 +95,22 @@ public class AutoLeftFar extends LinearOpMode {
         robot.Intake.setPower(0);
         robot.drive(0.35, (int)-(COUNTS_PER_INCH*7));
         robot.notallwait(0.7, (int)0);
-        robot.strafe(0.35, (int)-(COUNTS_PER_INCH*11));
-        robot.drive(0.35, (int)-(COUNTS_PER_INCH*23));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*13));
+        robot.gyroTurn(0.5, 0, 0.01);
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*21));
         // End of robot drop
         switch (sig) {
             case S1:
+                robot.strafe(0.35, (int)-(COUNTS_PER_INCH*28));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
             case S2:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*27));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                /*robot.strafe(0.35, (int)(COUNTS_PER_INCH*27));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));*/
                 break;
             case S3:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*50));
+                //robot.strafe(0.35, (int)(COUNTS_PER_INCH*50));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*26));
                 break;
         }
         while(true) {

@@ -80,18 +80,20 @@ public class AutoRightMiddle extends LinearOpMode {
         int counts = (int)(COUNTS_PER_INCH*distance);
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*1));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*5));
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*30));
+        robot.gyroTurn(0.5, 0, 0.01);
         robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*27));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*22));
         robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
+        robot.gyroTurn(0.5, 0, 0.01);
         // robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*4));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*6));
         robot.Arm.setPosition(0);
         robot.Intake.setPower(-1);
         sleep(500);
         robot.Intake.setPower(0);
-        robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*5));
         robot.notallwait(0.7, (int)0);
         // End of robot drop
         switch (sig) {

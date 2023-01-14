@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class AutoLeftMiddle extends LinearOpMode {
+public class AutoRightFar extends LinearOpMode {
 
     //static final double COUNTS_PER_MOTOR_REV = 28 ;
     //static final double DRIVE_GEAR_REDUCTION = 13.7;
@@ -42,7 +42,7 @@ public class AutoLeftMiddle extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-    //    signal = "one";
+        //    signal = "one";
 
         robot.init(this.hardwareMap);
         robot.Intake.setPower(1);
@@ -82,32 +82,35 @@ public class AutoLeftMiddle extends LinearOpMode {
         robot.LeftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.drive(0.35, (int)(COUNTS_PER_INCH*5));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-22));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*30));
         robot.gyroTurn(0.5, 0, 0.01);
         robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*22));
-        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-15));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*45));
+        robot.strafe(0.35, (int)(COUNTS_PER_INCH*-10.5));
         robot.gyroTurn(0.5, 0, 0.01);
-        // robot.notallwait(0.7, (int)-3700);
-        robot.drive(0.35, (int)(COUNTS_PER_INCH*7));
+        robot.drive(0.35, (int)(COUNTS_PER_INCH*5.5));
         robot.Arm.setPosition(0);
         robot.Intake.setPower(-1);
         sleep(500);
         robot.Intake.setPower(0);
-        robot.drive(0.35, (int)-(COUNTS_PER_INCH*6));
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*5.5));
         robot.notallwait(0.7, (int)0);
+        robot.strafe(0.35, (int)-(COUNTS_PER_INCH*13));
+        robot.gyroTurn(0.5, 0, 0.01);
+        robot.drive(0.35, (int)-(COUNTS_PER_INCH*21));
         // End of robot drop
         switch (sig) {
             case S1:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*15));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*28));
+                robot.strafe(0.35, (int)-(COUNTS_PER_INCH*2));
                 break;
             case S2:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*45));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-2));
+                /*robot.strafe(0.35, (int)(COUNTS_PER_INCH*-27));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));*/
                 break;
             case S3:
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*68));
+                //robot.strafe(0.35, (int)(COUNTS_PER_INCH*-50));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*-26));
                 break;
         }
         while(true) {
