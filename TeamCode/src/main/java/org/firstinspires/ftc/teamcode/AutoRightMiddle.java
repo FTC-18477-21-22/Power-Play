@@ -109,7 +109,7 @@ public class AutoRightMiddle extends LinearOpMode {
                 robot.strafe(0.35, (int)(COUNTS_PER_INCH*-66));
                 break;
         }
-        while(true) {
+        while(opModeIsActive()) {
             //empty
         }
 
@@ -125,7 +125,7 @@ public class AutoRightMiddle extends LinearOpMode {
     public static class SignalDetectionPipeline extends OpenCvPipeline
     {
         static final Point TOPLEFT_ANCHOR_POINT = new Point(190,60);
-        static final int REGION_WIDTH = 60;
+        static final int REGION_WIDTH = 100;
         static final int REGION_HEIGHT = 80;
         Point region_pointA = new Point(
                 TOPLEFT_ANCHOR_POINT.x,

@@ -101,8 +101,7 @@ public class AutoLeftFar extends LinearOpMode {
         // End of robot drop
         switch (sig) {
             case S1:
-                robot.strafe(0.35, (int)-(COUNTS_PER_INCH*28));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*26));
                 break;
             case S2:
                 /*robot.strafe(0.35, (int)(COUNTS_PER_INCH*27));
@@ -110,10 +109,11 @@ public class AutoLeftFar extends LinearOpMode {
                 break;
             case S3:
                 //robot.strafe(0.35, (int)(COUNTS_PER_INCH*50));
-                robot.strafe(0.35, (int)(COUNTS_PER_INCH*26));
+                robot.strafe(0.35, (int)-(COUNTS_PER_INCH*28));
+                robot.strafe(0.35, (int)(COUNTS_PER_INCH*2));
                 break;
         }
-        while(true) {
+        while(opModeIsActive()) {
             //empty
         }
 
@@ -130,7 +130,7 @@ public class AutoLeftFar extends LinearOpMode {
     public static class SignalDetectionPipeline extends OpenCvPipeline
     {
         static final Point TOPLEFT_ANCHOR_POINT = new Point(160,60);
-        static final int REGION_WIDTH = 60;
+        static final int REGION_WIDTH = 100;
         static final int REGION_HEIGHT = 80;
         Point region_pointA = new Point(
                 TOPLEFT_ANCHOR_POINT.x,
